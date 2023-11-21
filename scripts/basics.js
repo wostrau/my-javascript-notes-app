@@ -1,10 +1,10 @@
-//!https://javascript.info/while-for
+//! https://javascript.info/while-for
 
 /*
 loops:
 (1) while
 (2) do ... while
-(3) for (begin, condition, step) body
+(3) for (begin; condition; step) body
 (4) inline variable declaration
 (5) skipping parts (omit begin)
 (6) break / continue
@@ -18,5 +18,265 @@ for (let i = 0; i < 10; i++) {
         alert(i);
     }
 }
+
+outer: for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        let input = prompt(`Value at coords (${i}, ${j})`, '');
+        if (!input) break outer;
+    }
+}
+alert('Done!');
 */
 
+
+//! https://javascript.info/switch
+
+/*
+switch:
+(1) 'switch' can be replaced with multiple 'if' checks
+(2) syntax:
+    switch(check) {
+        case 'value1': // if (check === 'value1')
+            ...
+            [break]
+        default:
+            ...
+            [break]
+    }
+(3) should be break to avoid sequential execution
+(4) grouping of 'case' if need to run same code for these cases
+(5) need to emphasize that equality check is always strict -->
+    --> values must be the type to match
+(6)
+
+Example w/o breaks:
+let a = 2 + 2;
+switch (a) {
+    case 4:
+        alert('4');
+    case 5:
+        alert('5');
+    default:
+        alert('DEFAULT');
+}
+*/
+
+
+//! https://javascript.info/comparison
+
+/*
+(1) comparison operators are from maths: >, <, >=, <=
+(2) equality comparison operators: ==, != and 'strict' ===, !==
+(3) comparison operators return boolean value
+(4) comparison result can be assigned to a variable
+(5) when comparing values of diff types JS converts values to numbers
+(6) '1' becomes 1; '0' becomes 0
+(7) strict equality operator checks the equality without type conversion
+(8) null === undefined // false; null == undefined // true
+(9) null == 0 // false, but: null >= 0 // true
+(10) for math comparisons null becomes 0, undefined becomes NaN
+(11) comparison with NaN always returns false
+(12) strings are compared letter-by-letter in the 'dictionary' order
+(13) don't use math comparisons with variables which may become null/undefined
+(14) checking for null/undefined separately is a good idea
+
+Example:
+let a = 0;
+alert( Boolean(a) ); // false
+
+let b = '0';
+alert( Boolean(b) ); // true
+
+alert(a == b); // true
+*/
+
+
+//! https://javascript.info/logical-operators
+
+/*
+(1) logical operators in JS: || (OR), && (AND), ! (NOT), ?? (Nullish Coalescing)
+(2) || (Or) finds the first truthy value
+(3) || (OR) gets the first truthy value from a list of operands
+(4) if result is true || (OR) stops and returns the original value of operand
+(5) short-circuit evaluation: false || false || false || alert('will be printed')
+(6) && (AND) returns true if both operands are truthy and false otherwise
+(7) && (AND) finds the first falsy value
+(8) precedence of && (AND) is higher than || (OR)
+(9) sometimes && (AND) is used as a shorter way to write 'if'
+(10) ! (NOT) returns the inverse value;
+(11) double NOT !! is used for converting a value to boolean type
+(12) ?? (Nullish Coalescing) returns the first argument if it's not null/undefined
+(13) if first argument is null/undefined operator returns second argument
+(14) let user; alert(user ?? 'Anonymous user') // Anonymous user (user var is undefined)
+(15) can use a sequence of ??: alert(firstName ?? lastName ?? 'Anonymous')
+(16) difference: || returns the first TRUTHY, ?? returns the first DEFINED value
+(17) ?? lets us use default value when it is really unknown/not set
+
+Example:
+a && b || c && d // is essentially the same as: (a && b) || (c && d)
+
+let height = 0;
+alert(height || 100); // 100
+alert(height ?? 100); // 0
+*/
+
+
+//! https://javascript.info/alert-prompt-confirm
+
+/*
+(1) functions to interact with the user
+(2) 'alert' shows a message and waits for the user to press 'OK'
+(3) mini-window with the message is called a modal window
+(4) 'modal' means that the visitor cannot interact with the rest of the page
+(5) function 'prompt' takes two args: title, default (optional initial value)
+(6) the square brakes in syntax [ ... ] denote that parameter is optional
+(7) 'confirm' shows a modal window with a question and two buttons: ok and cancel
+(8) the result is true if press ok and false otherwise
+(9) methods are modal: they pause script execution
+(10) limitations: default by browser screen positioning, can't modify it
+
+Example:
+let result = prompt(title, [default]);
+
+let isBoss = confirm('Are you the boss?');
+alert( isBoss ); // true if ok is pressed
+*/
+
+
+//! https://javascript.info/strict-mode
+
+/*
+(1) For a long time, JS evolved w/o compatibility issues
+(2) New features were added, but old functionality didn't change
+(3) Benefit was in never braking code, but mistakes were stuck forever
+(4) ES5 appeared in 2009 and modified existing features
+(5) To avoid compatibility problems modifications are off by default
+(6) 'use strict' placed at the top of file lets work it in modern way
+(7) 'classes' and 'modules' enables 'use strict' automatically
+
+Example:
+function() {
+    'use strict'
+    ...
+}
+*/
+
+
+//! https://javascript.info/function-basics
+
+/*
+(1) used to perform a similar action in many places of the script
+(2) functions are the main 'building blocks' of the program
+(3) allow the code to be called many times without repetition
+(4) function declaration: function name(parameter1, parameter2, ...) { // body }
+(5) variable declared inside a function is only visible inside that function
+(6) the function has full access to the outer variable and can modify it
+(7) if a same-named var is declared inside the func then it SHADOWS the outer one
+(8) var declared outside a function are called global
+(9) good practice to minimize usage of global variables
+(10) modern code has few or NO global variables
+(11) when value is passed as a function parameter, it's also called an argument
+(12) we declare functions listing their parameters, then call them passing args
+(13) function may change args, but it is not seen outside
+(14) function always gets a copy of the value
+(15) if function called but arg is not provided, then it becomes undefined
+(16) can specify default value for a parameter in the function declaration, using =
+(17) default value jumps in if the parameter exists, but strictly equals undefined
+(18) a function can return a value back into the calling code as the result
+(19) when the execution reaches return directive the function stops
+(20) function with empty return or w/o it returns undefined
+(21) conventional naming: 'get' return value, 'check' check and return boolean
+
+Example:
+function showMessage(from, text) {
+    text = text || 'no text given';
+    ...
+}
+
+function sum(a, b) {
+    return a + b;
+}
+*/
+
+
+//! https://javascript.info/arrow-functions-basics
+
+/*
+(1) concise syntax: let func = (arg1, arg2, ...) => expression
+(2) () => expression; is the same as () => { return ... }
+(3) if we have one arg, then parentheses can be omitted
+(4) if there are no arguments, parentheses are empty, but they must be present
+
+Example:
+let func = (...args) => {
+    body
+}
+
+*/
+
+
+//! https://javascript.info/arrow-functions
+
+/*
+(1) arrow functions have no 'this'
+(2) can use it to iterate inside an object method
+(3) .bind(this) creates a 'bound version' of the function
+(4) arrow functions have no 'arguments' variable
+(5) can't be called with 'new'
+(6) arrow functions also don't nave 'super' (see https://javascript.info/class-inheritance)
+
+Example:
+let group = {
+    title: 'Our Group',
+    students: ['John', 'Pete', 'Alice'],
+
+    showList() {
+        this.students.forEach(
+            student => alert(this.title + ': ' + student)
+        );
+    }
+}
+
+*/
+
+
+//! https://javascript.info/function-expressions
+
+/*
+(1) syntax: let sayHu = function() { alert('Hello'); }
+(2) in JS a function is a value, so we can work with it like with value
+(3) we can copy a function to another variable
+(4) function expressions have a semicolon at the end
+(5) function declarations do not have a semicolon at the end
+(6) expressions often use as callback functions
+(7) function declaration declared as a separate statement in the code
+(8) function expression created inside an expression or other syntax construct
+(9) function expression is created when the execution reaches it
+(10) function expression is usable only from the moment of execution reaches it
+(11) function declaration can be called earlier than it is defined
+(12) function declaration is visible in the whole script, no matter where it is
+(13) due to internal algorithms: when JS prepares to run the script -->
+--> it first looks for global function declarations and creates the functions -->
+--> it called 'initialization stage'
+(14) function expressions are created when the execution reaches them
+(15) function declaration has block scope, don't work outside it
+(16) function declaration does not suit for conditional declaration
+
+Example:
+function ask(question, yes, no) {
+    if (confirm(question)) yes()
+    else no();
+}
+
+ask(
+    'Do you agree?',
+    function() { alert('You agreed.'); },
+    function() { alert('You canceled the execution.'); }
+);
+
+sayHi('John') // Hello, John
+
+function sayHi(name) {
+    alert(`Hello, ${name}`);
+}
+*/
