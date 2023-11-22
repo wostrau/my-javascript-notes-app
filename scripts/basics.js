@@ -416,3 +416,51 @@ Example:
 var gVar = 5;
 alert(window.gVar) // 5 (became a property of the global obj)
 */
+
+
+//! https://javascript.info/object
+
+/*
+(1) There are 8 data types in JS: 7 primitives and object
+(2) Objects are used to store keyed collections of data and more complex entities
+(3) obj created with figure brackets { key (property name): value }
+(4) let user = new Object(); // object constructor syntax
+(5) let user = {}; // object literal syntax
+(6) property values are accessible using the dot notation
+(7) to remove property we can use the delete operator
+(8) can use multiword property names, but then they must be quoted
+(9) for multiword or any properties must use square bracket notation
+(10) square brackets provide a way to obtain the prop name as the result of any expression
+(11) computed props: when use square brackets in an obj literal, when creating an obj
+(12) property value shorthand: instead of name:name can write just name
+(13) for instance, a number 0 becomes a string '0' when used as a property key
+(14) __proto__ cannot be set to a non-object value: obj.__proto__ // [object Object]
+(15) property existence test, in operator: 'key' in object // returns boolean
+(16) regular existence test is comparison with undefined
+(17) 'for...in' loop: for (let key in object) {} // executes body for each key
+(18) objects are associative arrays with several special features
+(19) in this chapter covered plain object, but there are other: Array, Date, Error etc.
+
+Examples:
+let user = { name: 'John', age: 35, 'likes birds': true };
+let key = 'likes dogs';
+
+user.isAdmin = true;
+user[key] = true;
+
+alert(user.key) // undefined --> dot notation cannot be used
+delete user.age;
+alert('age' in user); // false
+
+let fruit = prompt('Which fruit to buy?', 'apple');
+let bag = {
+    [fruit]: 5
+};
+
+alert( bag.apple ); // 5 if fruit = 'apple'
+
+let obj = { 0: 'test' };
+
+alert( obj[0] ); // test
+alert( obj['0'] ); // test
+*/
