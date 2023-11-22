@@ -280,3 +280,122 @@ function sayHi(name) {
     alert(`Hello, ${name}`);
 }
 */
+
+
+//! https://javascript.info/object-methods
+
+/*
+(1) function that is a property of an object is called its method
+(2) when we write code using objects to represent entities, that's called OOP
+(3) keyword this behaves unlike most other programming languages
+(4) it can be used in any function, even if it's not a method of an object
+(5) there is no syntax error: function sayHi() { alert(this.name); }
+(6) calling without an object: this === undefined in strict mode
+(7) in non-strict mode this will be the global object (window)
+(8) arrow functions don't have their own this
+(9) if we reference this from such a function, it's taken from outer function
+(10) the value of this is defined at run-time
+(11) function is called in the 'method' syntax --> the value of this is object
+
+Example:
+let user = {
+    firstName: 'Ilya',
+    sayHi() {
+        let say = () => {
+            alert(this.firstName);
+        }
+        say()
+    }
+};
+
+user.sayHi();
+*/
+
+
+//! https://javascript.info/bind
+
+/*
+(1) passing object methods as callbacks, there's a problem of 'losing' this
+(2) method setTimeout sets this = window and this becomes undefined
+(3) solution #1 is to use a wrapper function: setTimeout(() => user.sayHi(), 1000)
+(4) it works, cus it receives 'user' from outer lexical environment
+(5) solution #2: functions provide a built-in method bind that allows to fix this
+(6) basic bind syntax: let boundFunc = func.bind(context);
+(7) calling boundFunc is like func with fixed this
+(8) we can bind not only this, but also arguments --> rarely done, but can be handy
+(9) binding arguments is called partial function application
+
+Example:
+let user = { firstName: 'John' };
+
+function func() {
+    alert(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // John
+
+function mul(a, b) { return a * b; }
+
+let double = mul.bind(null, 2);
+
+double(3); // = mul(2, 3) = 6
+*/
+
+
+//! https://javascript.info/call-apply-decorators
+
+/*
+(1) for instance, function 'slow(x)' is CPU-heavy, but for 'x' always returns the same result
+(2) if the function is called often, we may want to cache the results to avoid time spending
+(3) transparent caching: we can create a wrapper function to add caching to 'slow' function
+(4) caching decorator mentioned above is not suited to work with object methods
+(5) built-in method func.call(context, ...args) that allows to call a function explicitly setting this
+(6) func(1, 2, 3) = func.call(obj, 1, 2, 3) --> same calls but func.call sets this to obj
+(7) func.apply(this, arguments) takes array-like object of arguments
+(8) generic call forwarding is usually done with apply: -->
+--> let wrapper = function() { return original.apply(this, arguments); };
+
+Example:
+function sayHi() {
+    alert(this.name);
+}
+
+let user = { name: 'John' };
+let admin = { name: 'Admin' };
+
+// use call to pass different objects as 'this'
+sayHi.call( user ) // John
+sayHi.call( admin ) // Admin
+
+function slow(x) {
+    //there can be a heavy CPU-intensive job here
+    alert(`Called with ${x}`);
+    return x;
+}
+
+function cachingDecorator(func) {
+    let cache = new Map();
+
+    return function (x) {
+        if (cache.has(x)) {
+            return cache.get(x);
+        }
+
+        let result = func(x);
+
+        cache.set(x, result);
+        return result;
+    };
+}
+
+slow = cachingDecorator(slow);
+
+alert(slow(1));
+alert('Again: ' + slow(1));
+
+alert(slow(2));
+alert('Again: ' + slow(2));
+*/
+
+
