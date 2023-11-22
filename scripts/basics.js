@@ -399,3 +399,20 @@ alert('Again: ' + slow(2));
 */
 
 
+//! https://javascript.info/global-object
+
+/*
+(1) global object provides variables and functions that are available anywhere
+(2) by default, those that are built into the language or the environment
+(3) in a browser it is named window, for node.js it is global
+(4) globalThis was added to the language, as a standardized name for a global obj
+(5) props of the global obj can be accessed directly: alert() same window.alert()
+(6) functions/variables declared with var become the prop of the global object
+(7) there should be as few global variables as possible
+(8) if there is none support of some global obj in browser, we can create 'polyfills'
+(9) if (!window.Promise) { window.Promise = ... // custom implementation }
+
+Example:
+var gVar = 5;
+alert(window.gVar) // 5 (became a property of the global obj)
+*/
