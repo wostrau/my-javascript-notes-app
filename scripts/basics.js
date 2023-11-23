@@ -464,3 +464,86 @@ let obj = { 0: 'test' };
 alert( obj[0] ); // test
 alert( obj['0'] ); // test
 */
+
+
+//! https://javascript.info/garbage-collection
+
+/*
+(1) memory management in JS is performed automatically and invisibly to us
+(2) main concept of memory management in JS is reachability
+(3) global vars, executing function with local vars and params, nested calls
+(4) all these values cannot be deleted and are called roots
+(5) there's a background process in JS that is called garbage collector
+(6) it monitors all objects and removes those that have become unreachable
+(7) interlinked objects: need incoming link / outcoming reference don't matter
+(8) unreachable island: possible that the whole island of interlinked objs be removed
+(9) the basic garbage collection algorithm is called 'mark-and-sweep'
+
+Example:
+let user = { name: 'John' };
+let admin = user
+user = null; // obj 'John' is still reachable via admin reference
+*/
+
+
+//! https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures
+
+/*
+(1) JS is dynamic language with dynamic types
+(2) Variables in JS are not directly associated with any particular value type
+(3) JS is weekly typed language, which allows implicit type conversion
+(4) implicit coercions are very convenient, but can create subtle bugs
+(5) for symbols and BigInts JS has intentionally disallowed implicit conversions
+(6) primitives define immutable values represented directly at the lowest level of JS
+(7) all primitive types, except null, can be tested by the typeof operator
+(8) type: Null, typeof return value: 'object', Object wrapper: N/A
+(8) type: Undefined, typeof return value: 'undefined', Object wrapper: N/A
+(8) type: Boolean, typeof return value: 'boolean', Object wrapper: Boolean
+(8) type: Number, typeof return value: 'number', Object wrapper: Number
+(8) type: BigInt, typeof return value: 'bigint', Object wrapper: BigInt
+(8) type: String, typeof return value: 'string', Object wrapper: String
+(8) type: Symbol, typeof return value: 'symbol', Object wrapper: Symbol
+(9) symbol is a unique and immutable primitive value and may be used asa key of object
+(10) in CS, an object is a value in memory which is possibly referenced by an identifier
+(11) in JS, objects are only mutable values
+(12) functions are also objects with the additional capability of being callable
+(13) in JS, objects can be seen as a collection of properties
+(14) object properties are equivalent to key-value pairs
+(15) property keys are either string or symbols
+(16) property values can be values of any type including other objects
+(17) you can set property through Object.defineProperty()
+(18) you can read property through Object.getOwnPropertyDescriptor()
+(19) indexed collections: arrays and typed arrays
+(20) keyed collections: Maps, Sets, WeakSets, WeakMaps
+(21) structured data: JSON - JavaScript object notation is a data-interchange format
+(22) JavaScript has a standard library of built-in objects
+
+Example:
+let user = {}
+*/
+
+
+//! https://javascript.info/types
+
+/*
+(1) a value in JavaScript is always of a certain type
+(2) we can put any type in a variable
+(3) variable can at the moment be a string and then store a number
+(4) languages that allow such things are called 'dynamically typed'
+(5) the number type represents both integer and floating point numbers
+(6) besides regular numbers there're 'special numeric values': (-)Infinity, NaN
+(7) Nan represents a calc error, result of an incorrect/undefined math operation
+(8) NaN is sticky: any further mathematical operation with NaN returns NaN
+(9) const bigInt = 1234567890123456789012345678901234567890n; // 'n' means BigInt
+(10) in JS, there are 3 types of quotes: double, single quotes and backticks
+(11) there is no a special 'character' type for a single character in JS
+(12) the boolean has only two values: true and false
+(13) in JS, null is a special value which represents 'nothing', 'empty', 'value unknown'
+(14) the meaning of undefined is 'value is not assigned'
+(15) same syntax: typeof(x) and typeof x, but the last is much more common
+(16) the typeof operator allows us to see which type is stored in a variable
+
+Example:
+let age;
+alert(age); // undefined
+*/
