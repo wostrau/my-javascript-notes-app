@@ -649,3 +649,37 @@ admin.fullName = 'Alice Cooper';
 alert(admin.fullName); // Cooper
 alert(user.fullName); // Smith
 */
+
+
+//! https://javascript.info/native-prototypes
+
+/*
+(1) all built-in constructor functions use 'prototype' property by the core of JS
+(2) when new Object() is called or a literal obj {} is created -->
+(3) --> the [[Prototype]] of it is set to Object.prototype
+(4) when obj.toString() is called the method is taken from Object.prototype
+(5) built-in objects: Array, Date, Function etc. also keep methods in prototypes
+(6) all of the built-in prototypes have Object.prototype on the top
+(7) [1, 2] -[[Prototype]]-> Array.prototype -[[...]]-> Object.prototype -[[...]]-> null
+(8) primitives are not objects, but built using constructors String, Number, Boolean
+(9) these objects are created invisibly to us and most engines optimize them out
+(10) methods of these objects are available as String.prototype etc.
+(11) native prototypes can be modified, if we add a method it becomes available to all
+(12) String.prototype.show = () => {} --> becomes available to all strings
+(13) generally, modifying a native prototype is considered a bad idea
+(14) there's one case where modifying is allowed --> that's polyfilling
+(15) only undefined and null do not have wrapper objects
+
+Example:
+let obj = {};
+
+alert( obj.__proto__ === Object.prototype ); // true
+
+let arr = [1, 2, 3];
+
+alert( arr.__proto__ === Array.prototype ); // true
+alert( arr.__proto__.__proto__ === Object.prototype ); // true
+alert( arr.__proto__.__proto__.__proto__ ); // null
+
+alert( arr ); // 1, 2, 3 <-- the result of Array.prototype.toString()
+*/
