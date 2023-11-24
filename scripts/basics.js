@@ -601,4 +601,51 @@ alert( meetup.date.getDate() ); // now works!
 */
 
 
-//! 
+//! https://javascript.info/prototype-inheritance
+
+/*
+(1) in JS, objects have a special hidden property [[Prototype]]
+(2) that is null or references another object
+(3) when we read property from object and if it's missing JS takes from prototype
+(4) the property [[Prototype]] is internal and hidden, but there are many ways to set it
+(5) one the them is to use the special name __proto__
+(6) the prototype can create a long chain of inheritance
+(7) the references can't go in circle, JS will throw an error if try to assign in a chain
+(8) the value of __proto__ can be either an object or null, other ignored
+(9) there can be only one [[Prototype]], an object ma not inherit from two others
+(10) __proto__ is not the same as the internal [[Prototype]] property
+(11) __proto__ is a historical getter/setter for [[Prototype]]
+(12) the __proto__ property is a bit outdated, JS suggests that we should use functions
+(13) functions that get/set the prototype: Object.getPrototypeOf()/Object.setPrototypeOf()
+(14) writing to a property that a setter function is actually the same as calling a function
+(15) 'this' is not affected by prototypes at all
+(16) no matter where the method is found: in an object or its prototype
+(17) in a method call, this is always the object before the dot
+(18) when the inheriting objects run the inherited methods, they will modify only their states
+(19) for...in loop iterates over inherited properties too
+(20) if we want to exclude inherited properties, use method: Object.hasOwnProperty(key)
+
+Examples:
+let animal = { eats: true };
+let rabbit = { jumps: true };
+
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
+alert( rabbit.eats ); // true
+
+let user = {
+    name: 'John',
+    surname: 'Smith',
+    set fullName(value){
+        [this.name, this.surname] = value.split(' ');
+    }
+    get fullName() {
+        return `${this.name} ${this.surname}`
+    }
+}
+
+let admin = {__proto__: user, isAdmin: true};
+
+admin.fullName = 'Alice Cooper';
+alert(admin.fullName); // Cooper
+alert(user.fullName); // Smith
+*/
