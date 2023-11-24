@@ -547,3 +547,58 @@ Example:
 let age;
 alert(age); // undefined
 */
+
+
+//! https://javascript.info/json
+
+/*
+(1) JavaScript Object Notation is a general format to represent values and objects
+(2) it's easy to use JSON for data exchange when the uses JS and the server: Ruby/PHP/Java/...
+(3) JS provides two methods: JSON.stringify, JSON.parse to convert JSON back into an obj
+(4) JSON is data-only language-independent specification
+(5) so some JS-specific object properties are skipped by JSON.stringify
+(6) namely: function props (methods), symbolic keys/values, props that store undefined
+(7) the great thing is that nested objects are supported and converted automatically
+(8) the important limitation: there must be no circular references
+(9) full syntax: let json = JSON.stringify(value, [ replacer, space ]);
+(10) obj may provide built-in method toJSON and JSON.stringify automatically calls it
+(11) JSON does not support comments, adding a comment to JSON makes it invalid
+(12) we can use reviving function into JSON.parse to deserialize JavaScript object
+(13) JSON supports plain objects, arrays, strings, numbers, booleans, and null
+(14) methods of JSON support transformer functions for smart reading/writing
+
+Example:
+let student = {
+    name: 'John',
+    age: 35,
+    isAdmin: false,
+    courses: ['html', 'css', 'js'],
+    spouse: null
+};
+
+let json = JSON.stringify(student);
+
+alert(typeof json); // we've got a string!
+alert(json); // JSON-encoded object
+
+let room = {
+    number: 23,
+    toJSON() {
+        return this.number;
+    }
+};
+
+alert( JSON.stringify(room) ); // 23
+
+let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+
+let meetup = JSON.parse(str, (key, value) => {
+    if (key === 'date') return new Date(value);
+    return value;
+})
+
+alert( meetup.date.getDate() ); // now works!
+*/
+
+
+//! 
