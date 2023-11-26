@@ -683,3 +683,35 @@ alert( arr.__proto__.__proto__.__proto__ ); // null
 
 alert( arr ); // 1, 2, 3 <-- the result of Array.prototype.toString()
 */
+
+
+//! https://javascript.info/prototype-methods
+
+/*
+(1) modern methods to get/set a prototype are:
+(2) Object.getPrototypeOf(obj) - returns the [[Prototype]] of obj
+(3) Object.setPrototypeOf(obj, proto) - sets the [[Prototype]] of obj to proto
+(4) the only ok usage of __proto__, when creating a new obj: {__proto__: ...}
+(5) there's a special method: Object.create(proto, [descriptors])
+(6) creates an empty object with given proto as [[Prototype]]
+(7) __proto__ is not a property of an object, but an accessor property of Object.prototype
+(8) if obj.__proto__ is read/set, the corresponding getter/setter is called
+(9) getter/setter is called from its prototype, and it gets/sets [[Prototype]]
+(10) __proto__ is a way to access [[Prototype]], it is not [[Prototype]] itself
+(11) the Object.create provides an easy way to shallow-copy an object with all descriptors:
+(12) let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
+(13) prototype-less objects can be created with: Object.create(null) or {__proto__: null}
+
+Example:
+let animal = { eats: true };
+let rabbit = Object.create(animal);
+
+alert(rabbit.eats); // true
+
+alert(Object.getPrototypeOf(rabbit) === animal); // true
+
+Object.setPrototypeOf(rabbit, {}); // change the prototype of rabbit to {}
+*/
+
+
+//!
