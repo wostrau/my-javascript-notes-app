@@ -760,3 +760,38 @@ Example:
 
 
 //! https://javascript.info/event-loop
+
+/*
+(1) the tasks from a queue, so-called 'macrotask queue' (V8 term)
+(2) macrotask queue: script, mousemove, setTimeout etc.
+(3) rendering never happens while the engine executes a task
+(4) changes to the DOM are painted only after the task is complete
+(5) if a task takes too long, the browser cannot do other tasks
+(6) microtasks come solely from our code
+(7) microtasks are usually created by promises: .then/catch/finally execution
+(8) there's a special function queueMicrotask(func) -->
+(9) that queues func for execution on the microtask queue
+(10) after every macrotask, engine executes all tasks from microtask queue
+(11) to schedule a new macrotask use zero delayed setTimeout()
+(12) there's no ui or network event handling between microtasks: run one by one
+(13) for long heavy calcs that shouldn't block the event loop, we can use Web Workers
+
+Example:
+let i = 0;
+let start = Date.now();
+
+function count() {
+
+    // do a piece of the heavy job
+    do {
+        i++;
+    } while (i % 1e6 != 0);
+
+    if (i == 1e9) {
+        alert('Done in ' + (Date,now() - start) + 'ms')
+    } else setTimeout(count);
+
+}
+
+count();
+*/
