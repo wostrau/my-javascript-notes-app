@@ -851,3 +851,53 @@ let promise = new Promise((resolve, reject) => {
     setTimeout(() => resolve('done'), 1000);
 });
 */
+
+
+//! https://javascript.info/promise-chaining
+
+/*
+(1) the idea is that the result is passed through the chain of .then handlers
+(2) newbie mistake: add many .then to a single promise --> this is not a chaining
+(3) error that they don't pass the result to each other (.then)
+(4) handler used in .then(handler) may create and return a promise -->
+(5) in that case further wait until it settles, and then get its result
+(6) in frontend programming promises are often used for network requests
+(7) if a .then handler returns a promise, the rest of the chain waits until it settles
+
+Example:
+fetch('/article/promise-vhainig/user.json')
+    .then(response => response.json())
+    .then(user => alert(user.name));
+
+fetch('article/promise-chaining/user.json')
+    .then(response => response.json())
+    .then(user => fetch('https://api.github.com/users/${user.name}'))
+    .then(response => response.json())
+    .then(githubUser => {
+        let img = document.createElement('img');
+        img.src = githubUser.avatar_url;
+        img.className = 'promise-avatar-example';
+        document.body.append(img);
+
+        setTimeout(() => img.remove(), 3000);
+    });
+*/
+
+
+//! https://javascript.info/promise-api
+
+/*
+(1)
+(2)
+(3)
+(4)
+(5)
+(6)
+(7)
+(8)
+(9)
+(10)
+
+Example:
+
+*/
