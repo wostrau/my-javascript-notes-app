@@ -824,3 +824,30 @@ alert('code finished');
 
 
 //! https://javascript.info/promise-basics
+
+/*
+(1) constructor syntax: let promise = new Promise((resolve, reject)=> { // executor });
+(2) the function passed to new Promise is called the executor
+(3) when new Promise is created, the executor runs automatically
+(4) when executor obtains the result, it should call: resolve(value), reject(error)
+(5) state: initially 'pending', then changes to 'fulfilled' or 'rejected'
+(6) result: initially undefined, then value when resolved or error when rejected
+(7) a job done by the executor may have only one result or an error
+(8) consuming func can be subscribed using methods .then/.catch
+(9) 1st arg of .then function that runs when the promise is resolved and receives the result
+(10) 2nd arg of .then is a function that runs when the promise is rejected with error
+(11) promise.then( result => alert(result), error => alert(error) );
+(12) the call .catch(f) is a complete analog of .then(null, f), it's just a shorthand
+(13) just like try() catch(), there is .finally() in promises
+(14) the idea of .finally() is to set up a handler for performing cleanup/finalizing
+(15) e.g. stopping loading indicators, closing no longer needed connections etc.
+(16) in .finally() we don't know whether the promise is successful or not
+(17) a .finally() handler shouldn't return anything, if it does returned value is silently ignored
+(18) when .finally() throws an error, then execution goes to the nearest error handler
+(19) .finally() supposed to be used for generic cleanup procedures
+
+Example:
+let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('done'), 1000);
+});
+*/
