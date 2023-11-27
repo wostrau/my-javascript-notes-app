@@ -768,7 +768,7 @@ Example:
 (4) changes to the DOM are painted only after the task is complete
 (5) if a task takes too long, the browser cannot do other tasks
 (6) microtasks come solely from our code
-(7) microtasks are usually created by promises: .then/catch/finally execution
+(7) microtasks are usually created by promises: .then/.catch/.finally execution
 (8) there's a special function queueMicrotask(func) -->
 (9) that queues func for execution on the microtask queue
 (10) after every macrotask, engine executes all tasks from microtask queue
@@ -795,3 +795,32 @@ function count() {
 
 count();
 */
+
+
+//! https://javascript.info/microtask-queue
+
+/*
+(1) promise handlers .then/.catch/.finally are always asynchronous
+(2) even when a Promise is immediately resolved, the code on the lines below -->
+(3) .then/.catch/.finally will still execute before these handlers
+(4) the queue is first-in-first-out: tasks enqueued first are run first
+(5) execution of a task is initiated only when nothing else is running
+(6) promise.then(handler); // enqueued ... alert('finish') // after it handler runs
+(7) promise handlers always go through this internal queue
+(8) if you what code to be finished after .then, just put it into the queue with .then
+(9) 'unhandled rejection' occurs when a promise error isn't handled at the end of microtask queue
+(10) promise handling is always asynchronous, as all promise actions pass through -->
+(11) the internal 'promise jobs' queue, also called 'microtask queue' (V8 term)
+(12) .then/.catch/.finally handlers are always called the current code is finished
+
+Example:
+// if you run this code you see 'code finished' first, and then 'promise done!'
+let promise = Promise.resolve();
+
+promise.then(() => alert('promise done!'));
+
+alert('code finished');
+*/
+
+
+//! https://javascript.info/promise-basics
