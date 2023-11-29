@@ -887,6 +887,71 @@ fetch('article/promise-chaining/user.json')
 //! https://javascript.info/promise-api
 
 /*
+(1) there are 6 static methods in the Promise class
+(2) let's say we want many promises to execute in parallel and wait until all of them are ready
+(3) that's what Promise.all is for: let promise = Promise.all(iterable);
+(4) Promise.all takes an array and returns a new promise
+(5) the order of the resulting array members is the same as in its source promises
+(6) common trick is to map an array of job data into an array of promises, then wrap with .all()
+(7) if any of the promises is rejected, the promise immediately rejects with an error
+(8) Promise.all(iterable) allows non-promise, just regular values in iterable
+(9) if any of the objects is not a promise, it's passed to the resulting array 'as is'
+(10) Promise.allSettled just waits for all promises to settle, regardless of the result
+(11) the result has: {status:'fulfilled', value:result} / {status:'rejected', reason:error}
+(12) for instance, we want to fetch users, and even if one request fails, we need the rest
+(13) Promise.race is similar to .all, but waits only for the first settled promise
+(14) Promise.any is similar to race, but waits only for the first fulfilled promise
+(15) methods Promise.resolve / Promise.reject are rarely needed in modern code
+(16) because async/await syntax makes them somewhat obsolete
+(17) Promise.resolve(value) creates a resolved promise with the result value
+(18) the method is used for compatibility, when a function is expected to return a promise
+(19) Promise.reject(error) creates a rejected promise with error
+(20) Same as: let promise = new Promise((resolve, reject) => reject(error));
+(21) of all these methods, Promise.all is probably the most common in practice
+
+Example:
+//// 1
+Promise.all([
+    new Promise(resolve => setTimeout(() => resolve(1), 3000)),
+    new Promise(resolve => setTimeout(() => resolve(2), 2000)),
+    new Promise(resolve => setTimeout(() => resolve(3), 1000)),
+]).then(alert); // 1, 2, 3 when promises are ready
+
+//// 2
+let urls = [
+    'https://api.github.com/users/iliakan',
+    'https://api.github.com/users/remy',
+    'https://api.github.com/users/jeresig'
+];
+
+let requests = urls.map(url => fetch(url));
+
+Promise.all(requests).then(reponses => {
+    rerurn responses.forEach(response => {
+        alert(`${response.url}: ${response.status}`)
+    })
+});
+
+//// 3
+let names = ['iliakan', 'remy', 'jeresig'];
+
+let requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
+
+Promise.all(requests)
+  .then(responses => {
+    for(let response of responses) {
+      alert(`${response.url}: ${response.status}`); // shows 200 for every url
+    }
+
+    return responses;
+  })
+  .then(responses => Promise.all(responses.map(r => r.json())))
+  .then(users => users.forEach(user => alert(user.name)));
+*/
+
+//! https://javascript.info/promisify
+
+/*
 (1)
 (2)
 (3)
