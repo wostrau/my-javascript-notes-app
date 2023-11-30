@@ -1017,3 +1017,120 @@ async function f() {
 
 f();
 */
+
+
+//! https://javascript.info/async-iterators-generators
+
+/*
+(1) asynchronous iteration allow us to iterate over data that comes asynchronously
+(2) for instance, when we download something chunk-by-chunk over a network
+(3) and asynchronous generators make it even more convenient
+(4) async iteration is needed when values come asynchronously: after setTimeout / another delay
+(5) common case is that the object needs to make a network request to deliver the next value
+(6) to make object iterable asynchronously: use Symbol.asyncIterator
+(7) the next() method should return a promise (to be fulfilled with the next value)
+(8) the async keyword handles it, we can simply make async next()
+(9) to iterate such an obj, we should use a for await (let item of iterable) loop
+(10) recall generators allow to make code much shorter
+(11) most of the time, when we'd like to make an iterable, we'll use generators
+(12) for simplicity, they are functions that generate (yield) values
+(13) generators are labelled with function* and use yield to generate a value
+(14) for most applications we would like to use an asynchronous generator
+(15) the syntax is simple: prepend function* with async --> makes generator asynchronous
+(16) use for await (...) to iterate over it
+(17) real-life example: paginated data
+(18) in web-development we often meet streams of data, when it flows chunk-by-chunk
+(19) for instance, downloading or uploading a big file --> can use async generators for it
+
+Example:
+//// 1
+let range = {
+  from: 1,
+  to: 5,
+
+  [Symbol.asyncIterator]() { // (1)
+    return {
+      current: this.from,
+      last: this.to,
+
+      async next() { // (2)
+
+        // note: we can use "await" inside the async next:
+        await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
+
+        if (this.current <= this.last) {
+          return { done: false, value: this.current++ };
+        } else {
+          return { done: true };
+        }
+      }
+    };
+  }
+};
+
+(async () => {
+
+  for await (let value of range) { // (4)
+    alert(value); // 1,2,3,4,5
+  }
+
+})()
+
+//// 2
+let range = {
+  from: 1,
+  to: 5,
+
+  *[Symbol.iterator]() { // a shorthand for [Symbol.iterator]: function*()
+    for(let value = this.from; value <= this.to; value++) {
+      yield value;
+    }
+  }
+};
+
+for(let value of range) {
+  alert(value); // 1, then 2, then 3, then 4, then 5
+}
+
+//// 3
+async function* fetchCommits(repo) {
+    let url = `https://api,github.com/repos/${repo}/commits`;
+
+    while (url) {
+        const response = await fetch(url, {
+            headers: {'User-Agent: 'Our script'},
+        });
+
+        const body = await response.json();
+
+        let nextPage = response.headers.get('Link').match(/<(.*?)>; rel='next');
+        nextPage = nextPage?.[1];
+
+        url = nextPage;
+
+        for(let commit of body) yield commit;
+    }
+}
+*/
+
+
+//! https://javascript.info/class-inheritance
+
+/*
+(1)
+(2)
+(3)
+(4)
+(5)
+(6)
+(7)
+(8)
+(9)
+(10)
+(11)
+(12)
+(13)
+
+Example:
+
+*/
