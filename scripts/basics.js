@@ -976,17 +976,44 @@ loadScriptPromise('path/script.js').then(...);
 //! https://javascript.info/async-await
 
 /*
-(1)
-(2)
-(3)
-(4)
-(5)
-(6)
-(7)
-(8)
-(9)
-(10)
+(1) async/await is a special syntax to with promises in a more comfortable way
+(2) async keyword can be placed before a function, like this: async function f() {};
+(3) async means on simple thing: a function always returns a promise
+(4) other values are wrapped in a resolved promise automatically
+(5) let f = async () => 1; f().then(alert); // 1
+(6) async ensures that the function returns a promise, and wraps non-promises in it
+(7) keyword await works only inside async functions
+(8) the syntax: let value = await promise;
+(9) the keyword await makes JS wait until that promise settles and returns its result
+(10) await literally suspends func execution until promise settles -->
+(11) --> then resumes it with the promise result
+(12) cannot use await in regular functions
+(13) for error handling: can use try...catch
+
 
 Example:
+//// 1
+async function f() {
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 1000)
+  });
 
+  let result = await promise; // wait until the promise resolves (*)
+
+  alert(result); // "done!"
+}
+
+f();
+
+//// 2
+async function f() {
+
+  try {
+    let response = await fetch('http://no-such-url');
+  } catch(err) {
+    alert(err); // TypeError: failed to fetch
+  }
+}
+
+f();
 */
