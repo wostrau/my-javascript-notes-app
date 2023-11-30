@@ -143,6 +143,89 @@ alert( isBoss ); // true if ok is pressed
 */
 
 
+//! https://javascript.info/destructuring-assignment
+
+/*
+(1) the two most used data structures in JavaScript are Object and Array
+(2) Objects allow us to create a single entity that stores data items by key
+(3) Arrays allow us to gather data items into an ordered list
+(4) destructuring assignment is a special syntax that allows us to 'unpack'
+(5) 'unpack' arrays and objects into a bunch of variables, as it is convenient
+(6) it's called 'destructuring assignment', cus it 'destructurizes' -->
+(7) --> by coping items into variables, but arrays is not modified
+(8) we can use such syntax with any iterables, not only arrays
+(9) if we'd like also to gather all - we can add param 'rest' with '...'
+(10) if we want a default value to replace the missing one, we can provide it using '='
+(11) basic syntax for obj destructuring: let {var1, var2} = {var1: ..., var2: ...};
+(12) default values can be any expressions or even function calls
+(13) we can pass params as an object, and the func destructurizes them into variables
+(14) full syntax: function({ incomingProperty: varName = defaultValue, ...})
+(15) it is possible to extract data from nested arrays/objects
+(16) for that the left side must have the same structure as the right one
+
+Example:
+//// 1
+let arr = ['John', 'Smith'];
+let [firstName, surname] = arr;
+
+alert(firstName); // John
+alert(surname); // Smith
+
+//// 2
+let user = {};
+[user.name, user.surname] = 'John Smith'.split(' ');
+
+alert(user.name); // John
+alert(user.surname); // Smith
+
+//// 3
+let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+alert(rest[0]); // Consul
+alert(rest[1]); // of the Roman Republic
+alert(rest.length); // 2
+
+//// 4
+let options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+let {title, width, height} = options;
+
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+
+//// 5
+let options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+let {width: w, height: h, title} = options; // { sourceProperty: targetVariable }
+
+alert(title);  // Menu
+alert(w);      // 100
+alert(h);      // 200
+
+//// 6
+let options = {
+  title: "My menu",
+  items: ["Item1", "Item2"]
+};
+
+function showMenu({title = "Untitled", width = 200, height = 100, items = []}) {
+  alert( `${title} ${width} ${height}` ); // My Menu 200 100
+  alert( items ); // Item1, Item2
+}
+
+showMenu(options);
+*/
+
+
 //! https://javascript.info/strict-mode
 
 /*
