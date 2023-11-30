@@ -1117,20 +1117,34 @@ async function* fetchCommits(repo) {
 //! https://javascript.info/class-inheritance
 
 /*
-(1)
-(2)
-(3)
-(4)
-(5)
-(6)
-(7)
-(8)
-(9)
-(10)
-(11)
-(12)
-(13)
+(1) class inheritance is a way for one class to extend another class
+(2) so we can create new functionality on the top of the existing
+(3) the syntax to extend another class is: class Child extends Parent
+(4) by default, all methods that are not specified in class Child -->
+(5) --> are taken directly 'as is' from class Parent
+(6) if we specify our own method in Child, then it will be used instead
+(7) to call the parent methods classes provide 'super' keyword for that
+(8) super.method(...) to call a parent method
+(9) super(...) to call a parent constructor (inside our constructor only)
+(10) arrow functions do not have super: if accessed, it's taken from the outer func
+(11) setTimeout(function() { super.stop() }, 1000); // unexpected super, error
+(12) constructor in inheriting classes must call super(...), and do it before this
+(13) if we don't override constructor it will be called automatically
+(14) if we override constructor should call super obligatory
+(15) otherwise the object for this won't be created and we'll get an error
+(16) extend a class: means Child.prototype.__proto__ will be Parent.prototype
+(17) must call parent constructor as super() in Child constructor before using this
+(18) we can use super.method() in a Child method to call Parent method
+(19) methods remember their class/obj in the [[HomeObject]] property
+(20) that's how super resolves parent methods
+(21) so it's not safe to copy a method with super from one object to another
+(22) arrow functions don't have their own this or super
+(23) so they transparently fit into the surrounding context
 
 Example:
-
+class Rabbit extends Animal {
+    stop() {
+        setTimeout(() => super.stop(), 1000); // calls aprent stop fn after 1sec
+    }
+}
 */
