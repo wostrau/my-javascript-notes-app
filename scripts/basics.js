@@ -952,6 +952,30 @@ Promise.all(requests)
 //! https://javascript.info/promisify
 
 /*
+(1) it's the conversion of a func that accepts a callback into a func that returns a promise
+(2) required in real-life, as many func and libraries are callback-based
+(3) but ptomises are more conveninient, so it makes sense to promisify them
+(4) the new function is a wraooer around the original loadScript function
+(5) now loadScriptPromise fits well in promise-based code
+
+Example:
+let loadScriptPromise = src => {
+    return new Promise((resolve, reject) => {
+        loadScript(src, (err, script) => {
+            if (err) reject(err);
+            else resolve(script);
+        });
+    });
+};
+
+// usage:
+loadScriptPromise('path/script.js').then(...);
+*/
+
+
+//! https://javascript.info/async-await
+
+/*
 (1)
 (2)
 (3)
